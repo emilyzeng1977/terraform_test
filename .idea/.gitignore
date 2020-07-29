@@ -1,0 +1,9 @@
+
+# Default ignored files
+/workspace.xml
+/$PRODUCT_WORKSPACE_FILE$
+/misc.xml
+/modules.xml
+/terraform_test.iml
+/vcs.xml
+/workspace.xml
