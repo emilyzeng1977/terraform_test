@@ -1,0 +1,65 @@
+variable "name_list" {
+  type    = list(string)
+  default = ["tom", "john", true]
+}
+
+variable "name_set" {
+  type    = set(string)
+  default = ["tom", "emily", "tom"]
+}
+
+variable "score_map" {
+  type = map(number)
+  default = {
+    tom   = 100
+    emily = 59
+  }
+}
+
+variable "tuple_example" {
+  type = tuple([string, number, bool])
+  default = ["tom", 46, true]
+}
+
+variable "Tom" {
+  type = object(
+    {
+      name  = string
+      age   = number
+      isMan = bool
+    }
+  )
+  default = {
+    name  = "tom"
+    age   = "46"
+    isMan = true
+  }
+}
+
+output "name_list" {
+  value = var.name_list
+}
+
+output "name_list_length" {
+  value = length(var.name_list)
+}
+
+output "name_set" {
+  value = var.name_set
+}
+
+output "score_map" {
+  value = var.score_map
+}
+
+output "score_map_tom" {
+  value = var.score_map.tom
+}
+
+output "tuple_example" {
+  value = var.tuple_example
+}
+
+output "Tom" {
+  value = var.Tom
+}
