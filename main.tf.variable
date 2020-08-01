@@ -1,6 +1,6 @@
 variable "name_list" {
   type    = list(string)
-  default = ["tom", "john", true]
+  default = ["tom", "emily", true]
 }
 
 variable "name_set" {
