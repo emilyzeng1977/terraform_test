@@ -1,21 +1,3 @@
-variable "image_id" {
-  type        = string
-  default = "abc123"
-}
-
-variable "image_id_list" {
-  type        = list
-  default = ["a1", "a2"]
-}
-
-variable "image_id_map" {
-  type        = map
-  default = {
-    internal = 8080
-    protocol = "tcp"
-  }
-}
-
 provider "aws" {
   profile       = "default"
   region        = "ap-southeast-2"
@@ -23,17 +5,5 @@ provider "aws" {
 
 resource "aws_s3_bucket" "demo" {
   bucket = "tom.niu14.tf.demo"
-}
-
-output "StringTest" {
-  value = var.image_id
-}
-
-output "ListTest" {
-  value = var.image_id_list[1]
-}
-
-output "MapTest" {
-  value = var.image_id_map.internal
 }
 
