@@ -31,15 +31,6 @@ provisioner "remote-exec" {
   ]
 }
 
-provisioner "file" {
-  source      = “./script/demo.sh"
-  destination = "/tmp/demo.sh"
-}
-
-
-
-
-
 4.Terraform CLI
 terraform refresh
 terraform graph ?
@@ -47,7 +38,7 @@ terraform state mv
 
 terraform import resource ID 
 Task: understand the usage of resource file, state mv, import and refresh
-1). copy main.tf.s3 main.tf
+1). Copy main.tf.s3 main.tf
 2). terraform apply  // Create S3
 3). terraform state list // list all the resource
 4). terraform state mv aws_s3_bucket.demo
@@ -99,12 +90,23 @@ Occasionally, we may also need to mix types. We can either create custom structu
 
 7.Implement and maintain state
 Backend Configuration
-Partial Configuration
-$terraform init \
-    -backend-config="address=demo.consul.io" \
-    -backend-config="path=example_app/terraform_state" \
-    -backend-config="scheme=https"
+1). Make sure init_backend is done
+2). cp main.tf.s3 main.tf
+3). Add the below code to main.tf
+terraform {
+  backend "s3" {
+    bucket         = "tom.niu14.backend"
+    key            = "terraform"
+    region         = "ap-southeast-2"
 
-
-
-
+    dynamodb_table = "tf-lock"
+    encrypt        = true
+  }
+}
+4). rm -rf .terraform/        // 4 and 5 is to prepare the env
+5). rm terraform.*            // 
+6). terraform init
+7). terraform apply
+8). Check S3 and Dynamodb on amazon console  
+9). terraform state list
+10). terraform state rm aws_s3_bucket.demo1
