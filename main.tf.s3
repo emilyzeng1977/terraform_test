@@ -2,10 +2,14 @@ provider "aws" {
   region        = "ap-southeast-2"
 }
 
+resource "aws_s3_bucket" "demo2" {
+  bucket = "tom.niu14.tf.demo2"
+}
+
 resource "aws_s3_bucket" "demo1" {
   bucket = "tom.niu14.tf.demo1"
 }
 
-resource "aws_s3_bucket" "demo2" {
-  bucket = "tom.niu14.tf.demo2"
+resource "aws_s3_bucket" "demo3" {
+  bucket = "tom.niu14.tf.demo3"
 }

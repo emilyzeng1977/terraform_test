@@ -2,7 +2,9 @@
 main.tf.pub -> it's to create an ec2 with public ip
 main.tf.pub_pri -> it's to create an ec2 in public subnet and an ec2 in private subnet
 main.if.init_backen -> it will create s3 and dynamodb table for backend
-
+https://app.terraform.io
+tomniu14
+niuyuzhou93....
 ====================================
 
 3.Terraform basic
@@ -35,8 +37,8 @@ provisioner "remote-exec" {
 terraform refresh
 terraform graph ?
 terraform state mv
-
-terraform import resource ID 
+terraform import resource ID
+ 
 Task: understand the usage of resource file, state mv, import and refresh
 1). Copy main.tf.s3 main.tf
 2). terraform apply  // Create S3
@@ -88,7 +90,26 @@ Occasionally, we may also need to mix types. We can either create custom structu
 
  terraform apply -var='name_list=["tom1","emily1"]'
 7.Implement and maintain state
-Backend Configuration
+https://www.terraform.io/docs/backends/types/index.html
+Backend Types:
+* Enhanced Backends (local and remote)
+* Standard Backends (s3, …, terraform enterprise)
+Task: Implement an example of remote backend
+1). https://app.terraform.io register an account (tomniu14) and create organization / workspace
+2). terreform login
+3). cp main.tf.s3 main.tf
+4). Copy the below code to main.tf
+terraform {
+  backend "remote" {
+    organization = "self_test"
+    workspaces {
+      name = "my-app-prod"
+    }
+  }
+}
+5). Observe app.terraform.io
+
+Task: Implement a standard backend example of S3
 1). Make sure init_backend is done
 2). cp main.tf.s3 main.tf
 3). Add the below code to main.tf
@@ -109,3 +130,15 @@ terraform {
 8). Check S3 and Dynamodb on amazon console  
 9). terraform state list
 10). terraform state rm aws_s3_bucket.demo1
+
+8.Read, generate and modify configuration
+Dependent
+Task: Understand how to implement dependent
+1). cp main.tf.s3 main.tf
+2). terraform apply
+3). Observe the output you will find it created these three buckets randomly.
+4). Destroy them.
+5). Implement creating them by the order of demo3 -> demo2 -> demo1
+depends_on = [
+  aws_s3_bucket.demo1
+]
