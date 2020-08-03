@@ -41,9 +41,9 @@ Task: understand the usage of resource file, state mv, import and refresh
 1). Copy main.tf.s3 main.tf
 2). terraform apply  // Create S3
 3). terraform state list // list all the resource
-4). terraform state mv aws_s3_bucket.demo
+4). terraform state rm aws_s3_bucket.demo1
 5). terraform refresh or destory // could just refresh and destroy the resources managed
-6). terraform import aws_s3_bucket.demo tom.niu14.tf.demo
+6). terraform import aws_s3_bucket.demo tom.niu14.tf.demo1
 7). terraform refresh
 8). Login the console and update this S3 (supporting versioning)
 9). terraform refresh
@@ -52,7 +52,7 @@ terraform taint
 Task: understand the concept about taint
 1). copy main.tf.s3 main.tf
 2). terraform apply
-3). terraform taint aws_s3_bucket.demo
+3). terraform taint aws_s3_bucket.demo1
 4). terraform apply // You will see it firstly destroy this resource and then create a new one
 
 5.Modules
@@ -87,7 +87,6 @@ Occasionally, we may also need to mix types. We can either create custom structu
 7). // Transfer params by CLI
 
  terraform apply -var='name_list=["tom1","emily1"]'
-
 7.Implement and maintain state
 Backend Configuration
 1). Make sure init_backend is done
