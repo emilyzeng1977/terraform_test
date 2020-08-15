@@ -37,11 +37,6 @@ variable "vpc_tags" {
   }
 }
 
-module "consul" {
-  source = "hashicorp/consul/aws"
-  version = "0.1.0"
-}
-
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.21.0"
