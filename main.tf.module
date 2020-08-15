@@ -1,0 +1,59 @@
+provider "aws" {
+  region = "ap-southeast-2"
+}
+
+variable "vpc_name" {
+  description = "Name of VPC"
+  type        = string
+  default     = "example-vpc"
+}
+
+variable "cidr_block" {
+  type = object({
+    vpc            = string
+    public_subnet  = list(string)
+    private_subnet = list(string)
+  })
+
+  default = {
+    vpc            = "10.1.0.0/16"
+    public_subnet  = ["10.1.0.0/24"]
+    private_subnet = ["10.1.1.0/24"]
+  }
+}
+
+variable "vpc_azs" {
+  description = "Availability zones for VPC"
+  type        = list
+  default     = ["ap-southeast-2a"]
+}
+
+variable "vpc_tags" {
+  description = "Tags to apply to resources created by VPC module"
+  type        = map(string)
+  default = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+
+module "consul" {
+  source = "hashicorp/consul/aws"
+  version = "0.1.0"
+}
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "2.21.0"
+
+  name = var.vpc_name
+  cidr = var.cidr_block.vpc
+
+  azs             = var.vpc_azs
+  private_subnets = var.cidr_block.private_subnet
+  public_subnets  = var.cidr_block.public_subnet
+
+  enable_nat_gateway = true
+
+  tags = var.vpc_tags
+}
