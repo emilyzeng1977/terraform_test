@@ -1,0 +1,32 @@
+provider "aws" {
+  region = "ap-southeast-2"
+}
+
+variable settings {
+  default = [
+    {
+      namespace = "aws:ec2:vpc"
+      name      = "VPCId"
+      value     = "vpc-001"
+    },
+    {
+      namespace = "aws:ec2:vpc"
+      name      = "Subnets"
+      value     = "subnet-001"
+    }
+  ]
+}
+
+resource "aws_elastic_beanstalk_environment" "tfenvtest" {
+  name        = "tf-test-name"
+  application = "tf-test-application"
+
+  dynamic "setting" {
+    for_each = var.settings
+    content {
+      namespace = setting.value["namespace"]
+      name      = setting.value["name"]
+      value     = setting.value["value"]
+    }
+  }
+}

@@ -48,7 +48,7 @@ module "vpc" {
   private_subnets = var.cidr_block.private_subnet
   public_subnets  = var.cidr_block.public_subnet
 
-  enable_nat_gateway = true
+  enable_nat_gateway = false
 
   tags = var.vpc_tags
 }
