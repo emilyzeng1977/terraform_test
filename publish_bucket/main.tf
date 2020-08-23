@@ -5,5 +5,5 @@ provider "aws" {
 variable "name" {}
 
 resource "aws_s3_bucket" "example" {
-  bucket = "tom.niu14.example"
+  bucket = var.name
 }
